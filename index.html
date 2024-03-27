@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO List</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>TODO List</h1>
+    <input onkeyup="Enter(event)" type="text" id="todoInput" placeholder="Add new item">
+    <button onclick="agregarTarea()">Agregar</button>
+    <button onclick="mostrarTareaMasVeloz()">🚗</button>
+    <button onclick="BorrarTodo()">Alt+f4</button>
+    <ul id="todoList"></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
