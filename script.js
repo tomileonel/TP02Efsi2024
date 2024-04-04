@@ -28,7 +28,7 @@ function cargarLista() {
 
 
 function Completar(elementoLista) {
-  const todoText = elementoLista.firstChild.textContent;
+  const todoText = elementoLista.textContent.split(" - ")[0];
   const todo = todos.find(item => item.text === todoText);
   if (!todo.completed) {
       todo.completed = new Date().getTime();
@@ -37,6 +37,7 @@ function Completar(elementoLista) {
   }
   cargarLista();
 }
+
 
 function mostrarTareaMasVeloz() {
   const tareaMasVeloz = todos.reduce((min, todo) => {
