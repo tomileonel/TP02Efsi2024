@@ -12,39 +12,45 @@ function agregarTarea() {
 }
 
 function cargarLista() {
-    const list = document.getElementById("todoList");
-    list.innerHTML = "";
-    todos.forEach(todo => {
-      const li = document.createElement("li");
-      const todoText = document.createElement("span"); 
-      todoText.textContent = todo.text;
+  const list = document.getElementById("todoList");
+  let listHTML = "";
+  todos.forEach(todo => {
+      listHTML += `<li onclick="Completar(this)" data-created="${todo.created}" data-completed="${todo.completed || ''}">`;
+      listHTML += `<span style="${todo.completed ? 'text-decoration: line-through;' : ''}">${todo.text}</span>`;
+      listHTML += ` - Creado: ${new Date(todo.created).toLocaleString()}`;
       if (todo.completed) {
-        todoText.style.textDecoration = "line-through"; 
+          listHTML += ` - Completado: ${new Date(todo.completed).toLocaleString()}`;
       }
-      li.appendChild(todoText);
-      li.appendChild(document.createTextNode(" - Creado: " + new Date(todo.created).toLocaleString() + (todo.completed ? " - Completado: " + new Date(todo.completed).toLocaleString() : "")));
-      li.onclick = () => Completar(todo);
-      list.appendChild(li);
-    });
-  
-  }
+      listHTML += `</li>`;
+  });
+  list.innerHTML = listHTML;
+}
 
 
-function Completar(todo) {
+function Completar(elementoLista) {
+  const todoText = elementoLista.firstChild.textContent;
+  const todo = todos.find(item => item.text === todoText);
   if (!todo.completed) {
-    todo.completed = new Date().getTime();
+      todo.completed = new Date().getTime();
   } else {
-    todo.completed = null;
+      todo.completed = null;
   }
   cargarLista();
 }
 
 function mostrarTareaMasVeloz() {
-  const tareaMasVeloz = todos.reduce((min, todo) => todo.completed && (min === null || todo.completed < min.completed) ? todo : min, null);
+  const tareaMasVeloz = todos.reduce((min, todo) => {
+      if (todo.completed && (min === null || (todo.completed - todo.created) < (min.completed - min.created))) {
+          return todo;
+      } else {
+          return min;
+      }
+  }, null);
+
   if (tareaMasVeloz) {
-    alert("La tarea mas veloz es: " + tareaMasVeloz.text);
+      alert("La tarea mas veloz es: " + tareaMasVeloz.text);
   } else {
-    alert("No hiciste nada aun amigazo");
+      alert("No hiciste nada aun amigazo");
   }
 }
 
