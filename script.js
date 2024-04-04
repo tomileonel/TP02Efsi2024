@@ -29,7 +29,6 @@ function cargarLista() {
 
 function Completar(elementoLista) {
   const todoText = elementoLista.textContent.split(" - ")[0];
-  console.log(todoText)
   const todo = todos.find(item => item.text === todoText);
   if (!todo.completed) {
       todo.completed = new Date().getTime();
