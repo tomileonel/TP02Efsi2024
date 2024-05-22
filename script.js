@@ -3,12 +3,17 @@ let todos = [];
 function agregarTarea() {
   let input = document.getElementById("todoInput");
   const todoText = validarTarea(input.value);
+  const tareaExistente = todos.find(tarea => tarea.text === todoText);
+  if (tareaExistente) {
+    alert("Ya existe una tarea con ese nombre.");
+  }else{
   if (todoText !== "") {
     const timestamp = new Date().getTime();
     todos.push({ text: todoText, created: timestamp, completed: null });
     cargarLista();
     input.value = "";
   }
+}
 }
 
 function cargarLista() {
