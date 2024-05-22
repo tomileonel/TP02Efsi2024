@@ -12,6 +12,8 @@ function agregarTarea() {
     todos.push({ text: todoText, created: timestamp, completed: null });
     cargarLista();
     input.value = "";
+  }else{
+    alert("Debes designarle un nombre a la tarea.")
   }
 }
 }
